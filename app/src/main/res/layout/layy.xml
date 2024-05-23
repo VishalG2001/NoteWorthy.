@@ -1,0 +1,33 @@
+<!-- res/layout/layy.xml -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:id="@+id/idlayy"
+    android:background="@drawable/roundcorner">
+
+    <TextView
+        android:id="@+id/textViewUpper"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textViewLower"
+        android:layout_width="wrap_content"
+        android:layout_height="37dp"
+        android:layout_below="@id/textViewUpper"
+        android:layout_marginTop="5dp"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="300dp"
+        android:layout_marginTop="50dp"
+        android:text="date"
+        android:visibility="gone"/>
+</RelativeLayout>

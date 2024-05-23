@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/text"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:backgroundTint="#E8E6E6"
+    tools:context=".MainActivity2">
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <Button
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/deletebtn"
+                android:layout_marginStart="205dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/delete"/>
+
+            <Button
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/savebtn"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/save"/>
+
+            <Button
+                android:id="@+id/optionsbtn"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/verticaloption"
+                android:layout_marginEnd="5dp"
+
+                />
+
+
+        </LinearLayout>
+    </androidx.appcompat.widget.Toolbar>
+    <ScrollView
+        android:id="@+id/scrollViewnote"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/savenote"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#BBB9B9"
+            android:text="Save"
+            android:textColor="#0C0C0C"
+            android:textColorHighlight="#6B6B6B"
+            android:textColorLink="#646464"
+            app:rippleColor="#6D6C6C"
+            app:strokeColor="#727272" />
+    </ScrollView>
+
+    <EditText
+        android:id="@+id/titlenote"
+        android:layout_width="410dp"
+        android:layout_height="74dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="53dp"
+        android:layout_marginEnd="5dp"
+        android:ems="10"
+        android:hint="Title"
+        android:inputType="text"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/contentnote"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:editable="false"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:clickable="false"
+        tools:ignore="Deprecated" />
+
+    <EditText
+        android:id="@+id/contentnote"
+        android:layout_width="407dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="122dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="Note...."
+        android:inputType="textMultiLine"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titlenote" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

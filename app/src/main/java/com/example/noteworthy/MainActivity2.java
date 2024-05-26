@@ -9,6 +9,8 @@ import android.widget.Toast;
 
 import com.example.noteworthy.databinding.ActivityMain2Binding;
 
+import java.util.Objects;
+
 public class MainActivity2 extends AppCompatActivity {
 
     private ActivityMain2Binding binding;
@@ -21,9 +23,12 @@ public class MainActivity2 extends AppCompatActivity {
         setContentView(view);
 
 
-        Intent addnewnote = getIntent();
-        String title = addnewnote.getStringExtra("idid");
-        binding.titlenote.setText(title);
+//        Intent addnewnote = getIntent();
+//        String title = addnewnote.getStringExtra("idid");
+//        binding.titlenote.setText(title);
+
+        binding.titlenote.setText(Objects.requireNonNull(getIntent().getExtras()).getString("ttle"));
+        binding.contentnote.setText(getIntent().getExtras().getString("contnt"));
 
 
 

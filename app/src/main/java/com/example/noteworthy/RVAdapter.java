@@ -1,5 +1,7 @@
 package com.example.noteworthy;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,16 +36,18 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.MyViewHolder> {
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyViewHolder holder,  int position) {
         // Bind data to the ViewHolder
         NoteModel noteModel = noteModelList.get(position);
         holder.bind(noteModel);
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.binding.idlayy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (selectListener != null) {
-                    selectListener.onItemClicked(position);
-                }
+                Intent inn = new Intent(v.getContext(), MainActivity2.class);
+                inn.putExtra("ttle",noteModel.getTitle());
+                inn.putExtra("contnt",noteModel.getContent());
+                inn.putExtra("noteid",noteModel.getId());
+                v.getContext().startActivity(inn);
             }
         });
     }

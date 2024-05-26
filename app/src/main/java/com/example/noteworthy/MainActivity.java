@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements SelectListener{
         List<NoteModel> noteList = dataBaseHelper.getlistnote();
         noteListAdapter.setNoteList(noteList);
 
-        binding.recycleview.addOnItemTouchListener();
+
 
         binding.addnewnote.setOnClickListener(new View.OnClickListener() {
             @Override

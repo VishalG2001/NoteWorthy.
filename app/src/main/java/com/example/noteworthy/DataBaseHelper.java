@@ -46,6 +46,16 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
     }
+    public void updateNote(NoteModel noteModel) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put("title", noteModel.getTitle());
+        values.put("content", noteModel.getContent());
+
+        db.update(NOTEWORTHY_TABLE, values, "id = ?", new String[]{String.valueOf(noteModel.getId())});
+        db.close();
+    }
     public boolean addNote(NoteModel noteModel) {
         SQLiteDatabase db = this.getReadableDatabase();
         ContentValues contentValues = new ContentValues();

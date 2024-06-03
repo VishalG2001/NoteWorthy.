@@ -78,11 +78,9 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.MyViewHolder> {
             binding.idlayy.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent inn = new Intent(v.getContext(), MainActivity2.class);
-                    inn.putExtra("ttle", noteModel.getTitle());
-                    inn.putExtra("contnt", noteModel.getContent());
-                    inn.putExtra("noteid", noteModel.getId());
-                    v.getContext().startActivity(inn);
+                    Intent intent = new Intent(v.getContext(), MainActivity2.class);
+                    intent.putExtra("noteId", noteModel.getId());
+                    v.getContext().startActivity(intent);
                 }
             });
         }

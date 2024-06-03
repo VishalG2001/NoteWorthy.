@@ -31,8 +31,7 @@ public class NoteModel {
         return content;
     }
 
-    public void setContent(String note) {
+    public void setContent(String content) {
         this.content = content;
     }
-
 }

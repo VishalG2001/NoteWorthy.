@@ -1,21 +1,19 @@
 package com.example.noteworthy;
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.noteworthy.databinding.ActivityMain2Binding;
+import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.Objects;
+import com.example.noteworthy.databinding.ActivityMain2Binding;
 
 public class MainActivity2 extends AppCompatActivity {
 
     private ActivityMain2Binding binding;
     private int noteId;
     private DataBaseHelper dataBaseHelper;
-    private NoteModel noteModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,65 +25,38 @@ public class MainActivity2 extends AppCompatActivity {
 
         Intent intent = getIntent();
         if (intent != null) {
-            noteId = intent.getIntExtra("noteId", 0);
-        }
-            if (noteId != 0) {
+            noteId = intent.getIntExtra("noteId", -1);
+            if (noteId != -1) {
                 loadNoteDetails(noteId);
             }
-
-
-        if (noteId > 0) {
-            noteModel = dataBaseHelper.get(noteId);
-            setDataOnViewFromId();}
-
-        Intent addNewNoteIntent = getIntent();
-        if (addNewNoteIntent != null) {
-            noteId = addNewNoteIntent.getIntExtra("noteId", -1);
-            String title = addNewNoteIntent.getStringExtra("title");
-            String content = addNewNoteIntent.getStringExtra("content");
-
-            binding.titlenote.setText(title);
-            binding.contentnote.setText(content);
         }
 
         binding.savenote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String check1 = binding.titlenote.getText().toString();
-                String check2 = binding.contentnote.getText().toString();
-                if (check1.length() == 0 && check2.length() == 0) {
-                    Intent send = new Intent(MainActivity2.this, MainActivity.class);
-                    send.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(send);
+                String title = binding.titlenote.getText().toString();
+                String content = binding.contentnote.getText().toString();
+
+                if (title.isEmpty() && content.isEmpty()) {
                     Toast.makeText(MainActivity2.this, "Nothing to Save", Toast.LENGTH_SHORT).show();
+                    navigateToMainActivity();
                 } else {
-                    if (noteId == 0) {
-                        NoteModel noteModel = new NoteModel(1, binding.titlenote.getText().toString(), binding.contentnote.getText().toString());
-                        Intent send = new Intent(MainActivity2.this, MainActivity.class);
-                        send.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(send);
-                        Toast.makeText(MainActivity2.this, "note added", Toast.LENGTH_SHORT).show();
-                        DataBaseHelper dataBaseHelper = new DataBaseHelper(MainActivity2.this);
+                    if (noteId == -1) {
+                        NoteModel noteModel = new NoteModel(0, title, content);
                         boolean success = dataBaseHelper.addNote(noteModel);
-                        finish();
-
-                        Toast.makeText(MainActivity2.this, "Success= " + success, Toast.LENGTH_SHORT).show();
+                        if (success) {
+                            Toast.makeText(MainActivity2.this, "Note added", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(MainActivity2.this, "Failed to add note", Toast.LENGTH_SHORT).show();
+                        }
                     } else {
-                        dataBaseHelper.updateNote1(check1,check2,String.valueOf(noteId));
-                        Intent send = new Intent(MainActivity2.this, MainActivity.class);
-                        send.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(send);
-                        finish();
-
+                        dataBaseHelper.updateNote1(title, content, String.valueOf(noteId));
+                        Toast.makeText(MainActivity2.this, "Note updated", Toast.LENGTH_SHORT).show();
                     }
+                    navigateToMainActivity();
                 }
             }
         });
-    }
-
-    private void setDataOnViewFromId() {
-        binding.titlenote.setText(noteModel.getTitle());
-        binding.contentnote.setText(noteModel.getContent());
     }
 
     private void loadNoteDetails(int id) {
@@ -94,5 +65,12 @@ public class MainActivity2 extends AppCompatActivity {
             binding.titlenote.setText(note.getTitle());
             binding.contentnote.setText(note.getContent());
         }
+    }
+
+    private void navigateToMainActivity() {
+        Intent send = new Intent(MainActivity2.this, MainActivity.class);
+        send.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(send);
+        finish();
     }
 }

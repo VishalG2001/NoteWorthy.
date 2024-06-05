@@ -1,5 +1,7 @@
 package com.example.noteworthy;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -18,6 +20,8 @@ public class MainActivity extends AppCompatActivity implements SelectListener {
     private ActivityMainBinding binding;
     private RVAdapter noteListAdapter;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements SelectListener {
         noteModels.addAll(noteList);
         noteListAdapter.setNoteList(noteList);
 
+
         binding.addnewnote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -42,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements SelectListener {
                 Toast.makeText(MainActivity.this, "Write your heart out :)", Toast.LENGTH_SHORT).show();
             }
         });
+
     }
 
     @Override

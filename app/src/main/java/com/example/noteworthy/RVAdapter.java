@@ -85,4 +85,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.MyViewHolder> {
             });
         }
     }
+    public interface NoteclickListener{
+        void onClick(NoteModel noteModel);
+    }
 }

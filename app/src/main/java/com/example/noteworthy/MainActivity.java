@@ -5,6 +5,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -19,7 +20,15 @@ public class MainActivity extends AppCompatActivity implements SelectListener {
     private ArrayList<NoteModel> noteModels = new ArrayList<>();
     private ActivityMainBinding binding;
     private RVAdapter noteListAdapter;
-
+    private DataBaseHelper dataBaseHelper;
+    ActivityResultLauncher<Intent> mainActivity2Result = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == Activity.RESULT_OK) {
+                    updateNoteList();
+                }
+            }
+    );
 
 
     @Override
@@ -29,25 +38,29 @@ public class MainActivity extends AppCompatActivity implements SelectListener {
         View view = binding.getRoot();
         setContentView(view);
 
+        dataBaseHelper = new DataBaseHelper(this);
+
+
         noteListAdapter = new RVAdapter(this);
         binding.recycleview.setAdapter(noteListAdapter);
         binding.recycleview.setLayoutManager(new LinearLayoutManager(this));
 
-        DataBaseHelper dataBaseHelper = new DataBaseHelper(this);
         List<NoteModel> noteList = dataBaseHelper.getlistnote();
         noteModels.addAll(noteList);
         noteListAdapter.setNoteList(noteList);
 
-
-        binding.addnewnote.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent addNoteIntent = new Intent(MainActivity.this, MainActivity2.class);
-                startActivity(addNoteIntent);
-                Toast.makeText(MainActivity.this, "Write your heart out :)", Toast.LENGTH_SHORT).show();
-            }
+        binding.addnewnote.setOnClickListener(v -> {
+            Intent addNoteIntent = new Intent(MainActivity.this, MainActivity2.class);
+            mainActivity2Result.launch(addNoteIntent);
+            Toast.makeText(MainActivity.this, "Write your heart out :)", Toast.LENGTH_SHORT).show();
         });
+    }
 
+    public void updateNoteList() {
+        List<NoteModel> noteModelList = dataBaseHelper.getlistnote();
+        noteModels.clear();
+        noteModels.addAll(noteModelList);
+        noteListAdapter.setNoteList(noteModelList);
     }
 
     @Override

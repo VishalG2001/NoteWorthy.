@@ -18,6 +18,8 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.MyViewHolder> {
 
     private List<NoteModel> noteModelList = new ArrayList<>();
     private final SelectListener selectListener;
+    private NoteClickListener noteClickListener;
+    private NoteLongClickListener noteLongClickListener;
 
     public RVAdapter(SelectListener selectListener) {
         this.selectListener = selectListener;
@@ -35,7 +37,6 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.MyViewHolder> {
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         NoteModel noteModel = noteModelList.get(position);
         holder.bind(noteModel);
-        holder.setOnClickListener(noteModel);
     }
 
     @Override
@@ -47,24 +48,45 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.MyViewHolder> {
         this.noteModelList = noteList;
         notifyDataSetChanged();
     }
+    public void setOnClickListener(NoteClickListener noteClickListener){
+        this.noteClickListener = noteClickListener;
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder {
+    }
+    public void setOnLongClickListener(NoteLongClickListener noteLongClickListener){
+        this.noteLongClickListener = noteLongClickListener;
+    }
+
+    public class MyViewHolder extends RecyclerView.ViewHolder {
+
         private LayyBinding binding;
-        private final SelectListener selectListener;
+
+
 
         public MyViewHolder(LayyBinding binding, SelectListener selectListener) {
             super(binding.getRoot());
             this.binding = binding;
-            this.selectListener = selectListener;
-            itemView.setOnClickListener(new View.OnClickListener() {
+
+            setClickListener();
+            setLongClickListener();
+
+        }
+        public void setClickListener(){
+            binding.idlayy.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (selectListener != null) {
-                        int pos = getAdapterPosition();
-                        if (pos != RecyclerView.NO_POSITION) {
-                            selectListener.onItemClicked(pos);
-                        }
-                    }
+                    int position = getAdapterPosition();
+                    noteClickListener.onClick(noteModelList.get(position));
+                }
+            });
+
+        }
+        public void setLongClickListener(){
+            binding.idlayy.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    int position = getAdapterPosition();
+                    noteLongClickListener.onLongClick(noteModelList.get(position));
+                    return true;
                 }
             });
         }
@@ -74,18 +96,22 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.MyViewHolder> {
             binding.textViewLower.setText(noteModel.getContent());
         }
 
-        public void setOnClickListener(NoteModel noteModel) {
-            binding.idlayy.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(v.getContext(), MainActivity2.class);
-                    intent.putExtra("noteId", noteModel.getId());
-                    v.getContext().startActivity(intent);
-                }
-            });
-        }
+//        public void setOnClickListener(NoteModel noteModel) {
+//            binding.idlayy.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Intent intent = new Intent(v.getContext(), MainActivity2.class);
+//                    intent.putExtra("noteId", noteModel.getId());
+//                    v.getContext().startActivity(intent);
+//                }
+//            });
+
+//        }
     }
-    public interface NoteclickListener{
+    public interface NoteClickListener{
         void onClick(NoteModel noteModel);
+    }
+    public interface NoteLongClickListener{
+        void onLongClick(NoteModel noteModel);
     }
 }

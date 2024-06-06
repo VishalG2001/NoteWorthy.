@@ -9,6 +9,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import com.example.noteworthy.databinding.ActivityMainBinding;
@@ -48,6 +49,20 @@ public class MainActivity extends AppCompatActivity implements SelectListener {
         List<NoteModel> noteList = dataBaseHelper.getlistnote();
         noteModels.addAll(noteList);
         noteListAdapter.setNoteList(noteList);
+        noteListAdapter.setOnClickListener(new RVAdapter.NoteClickListener() {
+            @Override
+            public void onClick(NoteModel noteModel) {
+                Intent intent = new Intent(MainActivity.this,MainActivity2.class);
+                intent.putExtra("noteId", noteModel.getId());
+                mainActivity2Result.launch(intent);
+            }
+        });
+        noteListAdapter.setOnLongClickListener(new RVAdapter.NoteLongClickListener() {
+            @Override
+            public void onLongClick(NoteModel noteModel) {
+                Toast.makeText(MainActivity.this, "hey", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         binding.addnewnote.setOnClickListener(v -> {
             Intent addNoteIntent = new Intent(MainActivity.this, MainActivity2.class);

@@ -8,44 +8,11 @@
     android:backgroundTint="#E8E6E6"
     tools:context=".MainActivity2">
 
-    <androidx.appcompat.widget.Toolbar
+    <include
+        android:id="@+id/toolbarM"
+        layout="@layout/toolbar_main"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <Button
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:id="@+id/deletebtn"
-                android:layout_marginStart="205dp"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/delete"/>
-
-            <Button
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:id="@+id/savebtn"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/save"/>
-
-            <Button
-                android:id="@+id/optionsbtn"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="5dp"
-                android:background="@drawable/verticaloption"
-                android:layout_marginEnd="5dp"
-
-                />
-
-
-        </LinearLayout>
-    </androidx.appcompat.widget.Toolbar>
+        android:layout_height="wrap_content"/>
     <ScrollView
         android:id="@+id/scrollViewnote"
         android:layout_width="0dp"

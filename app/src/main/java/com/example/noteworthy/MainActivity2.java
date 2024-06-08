@@ -3,6 +3,7 @@ package com.example.noteworthy;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Toast;
 
@@ -22,7 +23,6 @@ public class MainActivity2 extends AppCompatActivity {
         binding = ActivityMain2Binding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-
         dataBaseHelper = new DataBaseHelper(this);
 
         Intent intent = getIntent();
@@ -32,6 +32,9 @@ public class MainActivity2 extends AppCompatActivity {
                 loadNoteDetails(noteId);
             }
         }
+        setSupportActionBar(binding.toolbarM.toolbarM);
+        getSupportActionBar().setTitle("create note");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         binding.savenote.setOnClickListener(v -> {
             String title = binding.titlenote.getText().toString();
@@ -57,6 +60,12 @@ public class MainActivity2 extends AppCompatActivity {
             }
         });
     }
+   @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.menu_icon,menu);
+        return true;
+    }
+
 
     private void loadNoteDetails(int id) {
         NoteModel note = dataBaseHelper.getNoteById(id);
@@ -76,4 +85,5 @@ public class MainActivity2 extends AppCompatActivity {
         setResult(Activity.RESULT_OK, send);
         finish();
     }
+
 }

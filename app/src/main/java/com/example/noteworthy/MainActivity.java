@@ -4,10 +4,12 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.PopupMenu;
 import android.widget.Toast;
@@ -22,6 +24,7 @@ public class MainActivity extends AppCompatActivity implements SelectListener {
     private ActivityMainBinding binding;
     private RVAdapter noteListAdapter;
     private DataBaseHelper dataBaseHelper;
+    private
     ActivityResultLauncher<Intent> mainActivity2Result = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
@@ -60,9 +63,11 @@ public class MainActivity extends AppCompatActivity implements SelectListener {
         noteListAdapter.setOnLongClickListener(new RVAdapter.NoteLongClickListener() {
             @Override
             public void onLongClick(NoteModel noteModel) {
-                Toast.makeText(MainActivity.this, "hey", Toast.LENGTH_SHORT).show();
+                dataBaseHelper.deleteNoteFromRV(noteModel.getId());
+                Toast.makeText(MainActivity.this, "Note Deleted :)", Toast.LENGTH_SHORT).show();
             }
         });
+
 
         binding.addnewnote.setOnClickListener(v -> {
             Intent addNoteIntent = new Intent(MainActivity.this, MainActivity2.class);
@@ -84,4 +89,5 @@ public class MainActivity extends AppCompatActivity implements SelectListener {
         editNoteIntent.putExtra("noteId", noteModels.get(position).getId());
         startActivity(editNoteIntent);
     }
+
 }

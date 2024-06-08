@@ -86,6 +86,9 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.MyViewHolder> {
                 public boolean onLongClick(View v) {
                     int position = getAdapterPosition();
                     noteLongClickListener.onLongClick(noteModelList.get(position));
+                    noteModelList.remove(position);
+                    notifyItemRemoved(position);
+                    notifyItemRangeChanged(position,noteModelList.size());
                     return true;
                 }
             });

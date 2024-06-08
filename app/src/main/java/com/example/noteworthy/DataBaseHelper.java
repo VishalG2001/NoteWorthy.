@@ -64,6 +64,12 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             return null;
         }
     }
+    public boolean deleteNoteFromRV(int idd) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String delnote ="DELETE FROM " + NOTEWORTHY_TABLE + " WHERE " + NOTE_ID + " = " + idd;
+        Cursor cursor = db.rawQuery(delnote, null);
+        return cursor.moveToFirst();
+    }
 
     public List<NoteModel> getlistnote() {
         List<NoteModel> returnList = new ArrayList<>();

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.PopupMenu;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -88,7 +89,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.MyViewHolder> {
                     noteLongClickListener.onLongClick(noteModelList.get(position));
                     noteModelList.remove(position);
                     notifyItemRemoved(position);
-                    notifyItemRangeChanged(position,noteModelList.size());
+//                    notifyItemRangeChanged(position,noteModelList.size());
                     return true;
                 }
             });

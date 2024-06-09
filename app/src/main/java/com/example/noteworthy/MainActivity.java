@@ -15,6 +15,7 @@ import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import com.example.noteworthy.databinding.ActivityMainBinding;
+import com.example.noteworthy.databinding.LayyBinding;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +25,7 @@ public class MainActivity extends AppCompatActivity implements SelectListener {
     private ActivityMainBinding binding;
     private RVAdapter noteListAdapter;
     private DataBaseHelper dataBaseHelper;
-    private
+
     ActivityResultLauncher<Intent> mainActivity2Result = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
@@ -60,6 +61,8 @@ public class MainActivity extends AppCompatActivity implements SelectListener {
                 mainActivity2Result.launch(intent);
             }
         });
+
+
         noteListAdapter.setOnLongClickListener(new RVAdapter.NoteLongClickListener() {
             @Override
             public void onLongClick(NoteModel noteModel) {

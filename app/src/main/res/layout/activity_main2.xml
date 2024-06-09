@@ -8,11 +8,19 @@
     android:backgroundTint="#E8E6E6"
     tools:context=".MainActivity2">
 
-    <include
-        android:id="@+id/toolbarM"
-        layout="@layout/toolbar_main"
+    <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:id="@+id/toolbarR"
+        android:background="@color/appmain"
+        app:logo="@mipmap/ic_launcher"
+        app:title="Crea"
+        app:layout_constraintTop_toTopOf="parent"/>
+<!--    <include-->
+<!--        android:id="@+id/toolbarM"-->
+<!--        layout="@layout/toolbar_main"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"/>-->
     <ScrollView
         android:id="@+id/scrollViewnote"
         android:layout_width="0dp"

@@ -4,10 +4,13 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.noteworthy.databinding.ActivityMain2Binding;
 
@@ -32,9 +35,10 @@ public class MainActivity2 extends AppCompatActivity {
                 loadNoteDetails(noteId);
             }
         }
-        setSupportActionBar(binding.toolbarM.toolbarM);
+        setSupportActionBar(binding.toolbarR);
         getSupportActionBar().setTitle("create note");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         binding.savenote.setOnClickListener(v -> {
             String title = binding.titlenote.getText().toString();
@@ -66,6 +70,14 @@ public class MainActivity2 extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if(id==R.id.menu_save){
+
+
+        }
+    }
 
     private void loadNoteDetails(int id) {
         NoteModel note = dataBaseHelper.getNoteById(id);
@@ -85,5 +97,32 @@ public class MainActivity2 extends AppCompatActivity {
         setResult(Activity.RESULT_OK, send);
         finish();
     }
+    private void saveEditSave(){
+
+            String title = binding.titlenote.getText().toString();
+            String content = binding.contentnote.getText().toString();
+
+            if (title.isEmpty() && content.isEmpty()) {
+                Toast.makeText(MainActivity2.this, "Nothing to Save", Toast.LENGTH_SHORT).show();
+                navigateToMainActivity();
+            } else {
+                if (noteId == -1) {
+                    NoteModel noteModel = new NoteModel(0, title, content);
+                    boolean success = dataBaseHelper.addNote(noteModel);
+                    if (success) {
+                        Toast.makeText(MainActivity2.this, "Note added", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(MainActivity2.this, "Failed to add note", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    dataBaseHelper.updateNote1(title, content, String.valueOf(noteId));
+                    Toast.makeText(MainActivity2.this, "Note updated", Toast.LENGTH_SHORT).show();
+                }
+                navigateToMainActivity();
+            }
+
+    }
+
+
 
 }

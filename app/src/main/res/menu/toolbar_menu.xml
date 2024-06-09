@@ -2,11 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/save"
-        android:title="save">
-
-    </item>
+        android:id="@+id/save_menu"
+        android:title="save"
+        app:showAsAction="always"/>
     <item
-        />
+        android:id="@+id/delete_menu"
+        android:title="delete"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/share_menu"
+        android:title="share"/>
 
-</menu>
+    </menu>
+
+

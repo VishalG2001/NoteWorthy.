@@ -21,6 +21,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.MyViewHolder> {
     private final SelectListener selectListener;
     private NoteClickListener noteClickListener;
     private NoteLongClickListener noteLongClickListener;
+    private ThreeDotClick threeDotClick;
 
     public RVAdapter(SelectListener selectListener) {
         this.selectListener = selectListener;
@@ -56,6 +57,9 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.MyViewHolder> {
     public void setOnLongClickListener(NoteLongClickListener noteLongClickListener){
         this.noteLongClickListener = noteLongClickListener;
     }
+    public void setThreeDotClick(ThreeDotClick threeDotClick){
+        this.threeDotClick = threeDotClick;
+    }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
@@ -69,6 +73,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.MyViewHolder> {
 
             setClickListener();
             setLongClickListener();
+            set3dotClick();
 
         }
         public void setClickListener(){
@@ -87,10 +92,25 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.MyViewHolder> {
                 public boolean onLongClick(View v) {
                     int position = getAdapterPosition();
                     noteLongClickListener.onLongClick(noteModelList.get(position));
-                    noteModelList.remove(position);
-                    notifyItemRemoved(position);
+                    updateAfterDeleteRV();
+//                    noteModelList.remove(position);
+//                    notifyItemRemoved(position);
 //                    notifyItemRangeChanged(position,noteModelList.size());
                     return true;
+                }
+            });
+        }
+        public void updateAfterDeleteRV(){
+            noteModelList.remove(getAdapterPosition());
+            notifyItemRemoved(getAdapterPosition());
+
+        }
+        public void set3dotClick(){
+            binding.optionbutton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    threeDotClick.onClick(noteModelList.get(position));
                 }
             });
         }
@@ -113,6 +133,9 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.MyViewHolder> {
 //        }
     }
     public interface NoteClickListener{
+        void onClick(NoteModel noteModel);
+    }
+    public interface ThreeDotClick{
         void onClick(NoteModel noteModel);
     }
     public interface NoteLongClickListener{

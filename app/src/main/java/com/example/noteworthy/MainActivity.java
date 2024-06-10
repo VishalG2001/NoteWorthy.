@@ -49,6 +49,9 @@ public class MainActivity extends AppCompatActivity implements SelectListener {
         noteListAdapter = new RVAdapter(this);
         binding.recycleview.setAdapter(noteListAdapter);
         binding.recycleview.setLayoutManager(new LinearLayoutManager(this));
+        setSupportActionBar(binding.toolbarV);
+        getSupportActionBar().setTitle("NoteWorthy");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         List<NoteModel> noteList = dataBaseHelper.getlistnote();
         noteModels.addAll(noteList);
@@ -59,6 +62,27 @@ public class MainActivity extends AppCompatActivity implements SelectListener {
                 Intent intent = new Intent(MainActivity.this,MainActivity2.class);
                 intent.putExtra("noteId", noteModel.getId());
                 mainActivity2Result.launch(intent);
+            }
+        });
+        noteListAdapter.setThreeDotClick(new RVAdapter.ThreeDotClick() {
+            @Override
+            public void onClick(NoteModel noteModel) {
+//                Toast.makeText(MainActivity.this, "heuueue", Toast.LENGTH_SHORT).show();
+                PopupMenu popupMenu = new PopupMenu(MainActivity.this,binding.recycleview);
+                popupMenu.setGravity(5);
+                popupMenu.getMenuInflater().inflate(R.menu.popup_menu, popupMenu.getMenu());
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        if (item.getItemId()==R.id.delete_option){
+                            dataBaseHelper.deleteNoteFromRV(noteModel.getId());
+
+                            return true;
+                        }
+                        return false;
+                    }
+                });
+                popupMenu.show();
             }
         });
 

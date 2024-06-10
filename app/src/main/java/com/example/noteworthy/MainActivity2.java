@@ -40,29 +40,9 @@ public class MainActivity2 extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-        binding.savenote.setOnClickListener(v -> {
-            String title = binding.titlenote.getText().toString();
-            String content = binding.contentnote.getText().toString();
-
-            if (title.isEmpty() && content.isEmpty()) {
-                Toast.makeText(MainActivity2.this, "Nothing to Save", Toast.LENGTH_SHORT).show();
-                navigateToMainActivity();
-            } else {
-                if (noteId == -1) {
-                    NoteModel noteModel = new NoteModel(0, title, content);
-                    boolean success = dataBaseHelper.addNote(noteModel);
-                    if (success) {
-                        Toast.makeText(MainActivity2.this, "Note added", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(MainActivity2.this, "Failed to add note", Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    dataBaseHelper.updateNote1(title, content, String.valueOf(noteId));
-                    Toast.makeText(MainActivity2.this, "Note updated", Toast.LENGTH_SHORT).show();
-                }
-                navigateToMainActivity();
-            }
-        });
+//        binding.savenote.setOnClickListener(v -> {
+//            saveEditSave();
+//        });
     }
    @Override
     public boolean onCreateOptionsMenu(Menu menu){
@@ -74,9 +54,14 @@ public class MainActivity2 extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if(id==R.id.menu_save){
-
+            saveEditSave();
+        }
+        if(id==R.id.menu_delete){
+            dataBaseHelper.deleteNoteFromRV(noteId);
+            navigateToMainActivity();
 
         }
+        return false;
     }
 
     private void loadNoteDetails(int id) {
@@ -85,6 +70,12 @@ public class MainActivity2 extends AppCompatActivity {
             binding.titlenote.setText(note.getTitle());
             binding.contentnote.setText(note.getContent());
         }
+    }
+    public enum state{
+        VIEW;
+
+
+
     }
 
     @Override
@@ -120,9 +111,5 @@ public class MainActivity2 extends AppCompatActivity {
                 }
                 navigateToMainActivity();
             }
-
     }
-
-
-
 }

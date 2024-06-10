@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/toolbarR"
         android:background="@color/appmain"
-        app:logo="@mipmap/ic_launcher"
+        app:logo="@drawable/app_logo"
         app:title="Crea"
         app:layout_constraintTop_toTopOf="parent"/>
 <!--    <include-->
@@ -30,18 +30,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <Button
-            android:id="@+id/savenote"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#BBB9B9"
-            android:text="Save"
-            android:textColor="#0C0C0C"
-            android:textColorHighlight="#6B6B6B"
-            android:textColorLink="#646464"
-            app:rippleColor="#6D6C6C"
-            app:strokeColor="#727272" />
+<!--        <Button-->
+<!--            android:id="@+id/savenote"-->
+<!--            style="@style/Widget.AppCompat.Button.Borderless"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:backgroundTint="#BBB9B9"-->
+<!--            android:text="Save"-->
+<!--            android:textColor="#0C0C0C"-->
+<!--            android:textColorHighlight="#6B6B6B"-->
+<!--            android:textColorLink="#646464"-->
+<!--            app:rippleColor="#6D6C6C"-->
+<!--            app:strokeColor="#727272" />-->
     </ScrollView>
 
     <EditText

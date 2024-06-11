@@ -25,6 +25,8 @@ public class MainActivity extends AppCompatActivity implements SelectListener {
     private ActivityMainBinding binding;
     private RVAdapter noteListAdapter;
     private DataBaseHelper dataBaseHelper;
+    RVAdapter.MyViewHolder myViewHolder;
+
 
     ActivityResultLauncher<Intent> mainActivity2Result = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
@@ -67,7 +69,8 @@ public class MainActivity extends AppCompatActivity implements SelectListener {
         noteListAdapter.setThreeDotClick(new RVAdapter.ThreeDotClick() {
             @Override
             public void onClick(NoteModel noteModel) {
-//                Toast.makeText(MainActivity.this, "heuueue", Toast.LENGTH_SHORT).show();
+
+
                 PopupMenu popupMenu = new PopupMenu(MainActivity.this,binding.recycleview);
                 popupMenu.setGravity(5);
                 popupMenu.getMenuInflater().inflate(R.menu.popup_menu, popupMenu.getMenu());
@@ -75,8 +78,12 @@ public class MainActivity extends AppCompatActivity implements SelectListener {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
                         if (item.getItemId()==R.id.delete_option){
-                            dataBaseHelper.deleteNoteFromRV(noteModel.getId());
-
+                            boolean isdeleted = dataBaseHelper.deleteNoteFromRV(noteModel.getId());
+                            if(isdeleted){
+                                Toast.makeText(MainActivity.this, "myViewHolder.getAdapterPosition()", Toast.LENGTH_SHORT).show();
+                            }else {
+                                Toast.makeText(MainActivity.this, "Failed", Toast.LENGTH_SHORT).show();
+                            }
                             return true;
                         }
                         return false;
